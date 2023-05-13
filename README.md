@@ -36,3 +36,32 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 # Next 13
 
 Por default todos los componentes son renderizados desde el servidor (server side rendering). Para indicar que se renderiza desde el cliente podemos usar la etiqueta `"use client"`.
+La etiqueta de `"use client"` se usa en los componentes que manejan estados y hook.
+
+## Cuando usar server component y cuando client component
+
+```
+https://nextjs.org/docs/getting-started/react-essentials#when-to-use-server-and-client-components
+```
+
+To simplify the decision between Server and Client Components, we recommend using Server Components (default in the app directory) until you have a use case for a Client Component.
+
+```
+Server Component
+- Fetch data.
+- Access backend resources (directly)
+- Keep sensitive information on the server (access tokens, API keys, etc)
+- Keep large dependencies on the server / Reduce client-side JavaScript
+
+Client Component
+- Add interactivity and event listeners (onClick(), onChange(), etc).
+- Use State and Lifecycle Effects (useState(), useReducer(), useEffect(), etc).
+- Use browser-only APIs.
+- Use custom hooks that depend on state, effects, or browser-only APIs.
+- Use React Class components.
+```
+
+## Rutas
+
+Para crear las rutas NextJS usa el file system y las `page.tsx` para declarar las que es una pagina publica.
+
