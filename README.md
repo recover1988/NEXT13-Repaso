@@ -64,4 +64,103 @@ Client Component
 ## Rutas
 
 Para crear las rutas NextJS usa el file system y las `page.tsx` para declarar las que es una pagina publica.
+Para crera rutas dinamicas simplemente usamos los corchetes `[algunID]` con el nombre del param. luego se puede usar:
 
+```
+import React from "react";
+
+const page = ({ params }: { params: { postId: string } }) => {
+    return <div>{params.postId}</div>;
+};
+
+export default page;
+```
+
+Definimos el params.
+
+## page.tsx
+
+Para definir una ruta publica solamente agregamos el archivo `page.tsx`
+
+```
+// `app/page.tsx` is the UI for the `/` URL
+export default function Page() {
+  return <h1>Hello, Home page!</h1>;
+}
+```
+
+```
+// `app/dashboard/page.tsx` is the UI for the `/dashboard` URL
+export default function Page() {
+  return <h1>Hello, Dashboard Page!</h1>;
+}
+```
+
+## layout.tsx
+
+Definimos en este componenet una capa que sera usada por las demas rutas que compartan de esta. Se define una interfaz que se compartira entre las rutas hijas.
+
+```
+export default function DashboardLayout({
+  children, // will be a page or nested layout
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <section>
+      {/* Include shared UI here e.g. a header or sidebar */}
+      <nav></nav>
+
+      {children}
+    </section>
+  );
+}
+```
+
+## loading.tsx
+
+Se puede agregar una UI adentro de este loading incluido un esqueleto o un component loading normal.
+
+```
+export default function Loading() {
+  // You can add any UI inside Loading, including a Skeleton.
+  return <LoadingSkeleton />;
+}
+```
+
+## error.tsx
+
+Para manejar errores que pueda ocurrir podemos usar este archivos e indicar que se puede resetear para re renderizar el componente mediante un boton.
+
+```
+'use client'; // Error components must be Client Components
+
+import { useEffect } from 'react';
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
+
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button
+        onClick={
+          // Attempt to recover by trying to re-render the segment
+          () => reset()
+        }
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
+```
