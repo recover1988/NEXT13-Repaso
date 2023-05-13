@@ -164,3 +164,42 @@ export default function Error({
   );
 }
 ```
+
+## DATA FETCHING
+
+Hay 3 formas en nextjs:
+
+1. Server Side Rendering (SSR)
+2. Static Site Generation (SSG)
+3. Incremental Static Generation (ISR)
+
+## SEO & metadata
+
+Se puede generar de forma estatica o dinamica:
+
+### Estatica
+
+simplemente en la `page.tsx` exportamos una constante llamada metadata:
+
+```
+export const metadata = {
+  title: 'Home'
+}
+```
+
+Y seria algo asi
+
+```
+<head>
+  <title>Home</title>
+</head>
+```
+
+### Dinamica
+
+```
+export async function generateMetadata({params, searchParams}){
+  const product = await getProduct(params.id);
+  return {title: product.title};
+}
+```
