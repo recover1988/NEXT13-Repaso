@@ -1,3 +1,4 @@
+import Nav from "@components/Nav";
 import "@styles/globals.css";
 import { Inter } from "next/font/google";
 
@@ -19,7 +20,9 @@ export default function RootLayout({
                 <div className="main">
                     <div className="gradient" />
                 </div>
-                <div className="app">{children}</div>
+                <div className="app">
+                    <Nav />
+                    {children}</div>
             </body>
         </html>
     );
